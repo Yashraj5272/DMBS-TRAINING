@@ -1,0 +1,338 @@
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.46 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| collage            |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql> use collage
+Database changed
+mysql> show tables;
++-------------------+
+| Tables_in_collage |
++-------------------+
+| student           |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> create table Employee;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table Employee (EID PRIMARYKEY INT , ENAME VARCHAR(50) ,SALARY INT , LOCATION VARCHAR(50) , DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARYKEY INT , ENAME VARCHAR(50) ,SALARY INT , LOCATION VARCHAR(50) , DEPARTME' at line 1
+mysql> create table Employee (EID PRIMARYKEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARYKEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR' at line 1
+mysql> CREATE TABLE Employee (EID PRIMARYKEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARYKEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR' at line 1
+mysql> CREATE TABLE Employee (EID PRIMARY KEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHA' at line 1
+mysql> CREATE TABLE Employee (EID PRIMARY KEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHAR(50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARY KEY , ENAME VARCHAR(50) ,SALARY, LOCATION VARCHAR(50), DEPARTMENT VARCHA' at line 1
+mysql> CREATE TABLE Employee (EID PRIMARYKEY ,ENAME VARCHAR(50) ,SALARY,LOCATION VARCHAR(50),DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARYKEY ,ENAME VARCHAR(50) ,SALARY,LOCATION VARCHAR(50),DEPARTMENT VARCHAR (5' at line 1
+mysql> CREATE TABLE Employee (EID INT   PRIMARYKEY ,ENAME VARCHAR(50) ,SALARY,LOCATION VARCHAR(50),DEPARTMENT VARCHAR (50));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PRIMARYKEY ,ENAME VARCHAR(50) ,SALARY,LOCATION VARCHAR(50),DEPARTMENT VARCHAR (5' at line 1
+mysql>  CREATE TABLE Employee (
+    ->     EID INT PRIMARY KEY,
+    ->     ENAME VARCHAR(50),
+    ->     SALARY INT,
+    ->     LOCATION VARCHAR(50),
+    ->     DEPARTMENT VARCHAR(50)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT into Employee ("01","Harsh","50000","SOC");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"01","Harsh","50000","SOC")' at line 1
+mysql> INSERT into Employee ("01","Harsh","50000","SOC")
+    -> ,
+    -> INSERT into Employee ("02","Hemant","55000","SOC"),
+    ->
+    ->
+    -> kjb
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"01","Harsh","50000","SOC")
+,
+INSERT into Employee ("02","Hemant","55000","SOC")' at line 1
+mysql> INSERT into Employee ("01","Harsh","50000","SOC");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"01","Harsh","50000","SOC")' at line 1
+mysql> INSERT INTO Employee (EID, ENAME, SALARY, DEPARTMENT)
+    -> VALUES (1, 'Harsh', 50000, 'SOC');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> VALUES (2, 'Hemant', 55000, 'SOC');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(2, 'Hemant', 55000, 'SOC')' at line 1
+mysql> INSERT INTO Employee (EID, ENAME, SALARY, DEPARTMENT)
+    -> VALUES (2, 'Hemant', 55000, 'SOC'),
+    -> VALUES (3, 'Sunil', 40000, 'SOE'),
+    ->
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES (3, 'Sunil', 40000, 'SOE'),' at line 3
+mysql> INSERT INTO Employee (EID, ENAME, SALARY, DEPARTMENT)
+    -> VALUES
+    -> (2, 'Hemant', 55000, 'SOC'),
+    -> (3, 'Sunil', 40000, 'SOE');
+Query OK, 2 rows affected (0.01 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from Employee;
++-----+--------+--------+----------+------------+
+| EID | ENAME  | SALARY | LOCATION | DEPARTMENT |
++-----+--------+--------+----------+------------+
+|   1 | Harsh  |  50000 | NULL     | SOC        |
+|   2 | Hemant |  55000 | NULL     | SOC        |
+|   3 | Sunil  |  40000 | NULL     | SOE        |
++-----+--------+--------+----------+------------+
+3 rows in set (0.01 sec)
+
+mysql> INSERT INTO Employee (EID, ENAME, SALARY, DEPARTMENT)
+    -> VALUES
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> INSERT INTO Employee
+    -> VALUES
+    -> (4, 'Rahul', 45000, 'Pune', 'SOC'),
+    -> (5, 'Sneha', 52000, 'Mumbai', 'SOE'),
+    -> (6, 'Amit', 48000, 'Nashik', 'SOC'),
+    -> (7, 'Priya', 60000, 'Nagpur', 'SOE'),
+    -> (8, 'Karan', 55000, 'Pune', 'SOC'),
+    -> (9, 'Neha', 47000, 'Aurangabad', 'SOE'),
+    -> (10, 'Rohan', 65000, 'Mumbai', 'SOC');
+Query OK, 7 rows affected (0.01 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMPLOYEE
+    -> SET LOCATION='PUNE'
+    -> WHERE EID = 1;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE
+    -> SET LOCATION='PUNE'
+    -> WHERE EID = 2;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> UPDATE EMPLOYEE
+    -> SET LOCATION='PUNE'
+    -> WHERE EID = 3;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_collage |
++-------------------+
+| employee          |
+| student           |
++-------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * EMPLOYEE
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EMPLOYEE' at line 1
+mysql> SELECT * FROM EMPLOYEE;
++-----+--------+--------+------------+------------+
+| EID | ENAME  | SALARY | LOCATION   | DEPARTMENT |
++-----+--------+--------+------------+------------+
+|   1 | Harsh  |  50000 | PUNE       | SOC        |
+|   2 | Hemant |  55000 | PUNE       | SOC        |
+|   3 | Sunil  |  40000 | PUNE       | SOE        |
+|   4 | Rahul  |  45000 | Pune       | SOC        |
+|   5 | Sneha  |  52000 | Mumbai     | SOE        |
+|   6 | Amit   |  48000 | Nashik     | SOC        |
+|   7 | Priya  |  60000 | Nagpur     | SOE        |
+|   8 | Karan  |  55000 | Pune       | SOC        |
+|   9 | Neha   |  47000 | Aurangabad | SOE        |
+|  10 | Rohan  |  65000 | Mumbai     | SOC        |
++-----+--------+--------+------------+------------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++-----+--------+--------+------------+------------+
+| EID | ENAME  | SALARY | LOCATION   | DEPARTMENT |
++-----+--------+--------+------------+------------+
+|   1 | Harsh  |  50000 | PUNE       | SOC        |
+|   2 | Hemant |  55000 | PUNE       | SOC        |
+|   3 | Sunil  |  40000 | PUNE       | SOE        |
+|   4 | Rahul  |  45000 | Pune       | SOC        |
+|   5 | Sneha  |  52000 | Mumbai     | SOE        |
+|   6 | Amit   |  48000 | Nashik     | SOC        |
+|   7 | Priya  |  60000 | Nagpur     | SOE        |
+|   8 | Karan  |  55000 | Pune       | SOC        |
+|   9 | Neha   |  47000 | Aurangabad | SOE        |
+|  10 | Rohan  |  65000 | Mumbai     | SOC        |
++-----+--------+--------+------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY > 50000;
++-----+--------+--------+----------+------------+
+| EID | ENAME  | SALARY | LOCATION | DEPARTMENT |
++-----+--------+--------+----------+------------+
+|   2 | Hemant |  55000 | PUNE     | SOC        |
+|   5 | Sneha  |  52000 | Mumbai   | SOE        |
+|   7 | Priya  |  60000 | Nagpur   | SOE        |
+|   8 | Karan  |  55000 | Pune     | SOC        |
+|  10 | Rohan  |  65000 | Mumbai   | SOC        |
++-----+--------+--------+----------+------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEE WHERE SALARY < 50000;
++-----+-------+--------+------------+------------+
+| EID | ENAME | SALARY | LOCATION   | DEPARTMENT |
++-----+-------+--------+------------+------------+
+|   3 | Sunil |  40000 | PUNE       | SOE        |
+|   4 | Rahul |  45000 | Pune       | SOC        |
+|   6 | Amit  |  48000 | Nashik     | SOC        |
+|   9 | Neha  |  47000 | Aurangabad | SOE        |
++-----+-------+--------+------------+------------+
+4 rows in set (0.01 sec)
+
+mysql> USE COLLAGE
+Database changed
+mysql> CRAETE TABLE BOOKSHELF;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRAETE TABLE BOOKSHELF' at line 1
+mysql> CRAETE TABLE BOOKSHELF (BOOK_TITLE INT PRIMARY KEY, AUTHOR_NAME VARCHAR, PAGE COUNT INT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'CRAETE TABLE BOOKSHELF (BOOK_TITLE INT PRIMARY KEY, AUTHOR_NAME VARCHAR, PAGE CO' at line 1
+mysql> CREATE TABLE BOOKSHELF (BOOK_TITLE VARCHAR(100) PRIMARY KEY, AUTHOR_NAME VARCHAR (100), PAGE_COUNT INT;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> CREATE TABLE BOOKSHELF (BOOK_TITLE VARCHAR(100) PRIMARY KEY, AUTHOR_NAME VARCHAR (100), PAGE_COUNT INT);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO BOOKSHELF
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> ALTER TABLE BOOKSHELF
+    -> ADD GENRE VARCHAR(50),
+    -> ADD STATUS VARCHAR(20);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO BOOKSHELF
+    -> VALUES
+    -> ('Java Programming','James Gosling',500,'Programming','Reading'),
+    -> VALUES ('Python Basics','Guido van Rossum',400,'Programming','Reading'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VALUES ('Python Basics','Guido van Rossum',400,'Programming','Reading'),' at line 4
+mysql> INSERT INTO BOOKSHELF VALUES
+    -> ('Java Programming','James Gosling',500,'Programming','Reading'),
+    -> ('Python Basics','Guido van Rossum',400,'Programming','Reading'),
+    -> ('Harry Potter','J K Rowling',350,'Fantasy','Finished'),
+    -> ('The Hobbit','J R R Tolkien',310,'Adventure','Reading'),
+    -> ('Sherlock Holmes','Arthur Conan Doyle',280,'Mystery','Finished'),
+    -> ('Wings of Fire','A P J Abdul Kalam',180,'Biography','Finished'),
+    -> ('C Programming','Dennis Ritchie',450,'Programming','Reading'),
+    -> ('The Alchemist','Paulo Coelho',220,'Fiction','Finished'),
+    -> ('Rich Dad Poor Dad','Robert Kiyosaki',336,'Finance','Reading'),
+    -> ('Think and Grow Rich','Napoleon Hill',320,'Self Help','Finished');
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM BOOKSHELF;
++---------------------+--------------------+------------+-------------+----------+
+| BOOK_TITLE          | AUTHOR_NAME        | PAGE_COUNT | GENRE       | STATUS   |
++---------------------+--------------------+------------+-------------+----------+
+| C Programming       | Dennis Ritchie     |        450 | Programming | Reading  |
+| Harry Potter        | J K Rowling        |        350 | Fantasy     | Finished |
+| Java Programming    | James Gosling      |        500 | Programming | Reading  |
+| Python Basics       | Guido van Rossum   |        400 | Programming | Reading  |
+| Rich Dad Poor Dad   | Robert Kiyosaki    |        336 | Finance     | Reading  |
+| Sherlock Holmes     | Arthur Conan Doyle |        280 | Mystery     | Finished |
+| The Alchemist       | Paulo Coelho       |        220 | Fiction     | Finished |
+| The Hobbit          | J R R Tolkien      |        310 | Adventure   | Reading  |
+| Think and Grow Rich | Napoleon Hill      |        320 | Self Help   | Finished |
+| Wings of Fire       | A P J Abdul Kalam  |        180 | Biography   | Finished |
++---------------------+--------------------+------------+-------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> Great! Now perform the remaining CRUD operations.
+    ->
+    -> 1. READ (View all books)
+    -> SELECT * FROM BOOKSHELF;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Great! Now perform the remaining CRUD operations.
+
+1. READ (View all books)
+SELE' at line 1
+mysql> SELECT * FROM BOOKSHELF
+    -> WHERE AUTHOR_NAME = 'J K Rowling';
++--------------+-------------+------------+---------+----------+
+| BOOK_TITLE   | AUTHOR_NAME | PAGE_COUNT | GENRE   | STATUS   |
++--------------+-------------+------------+---------+----------+
+| Harry Potter | J K Rowling |        350 | Fantasy | Finished |
++--------------+-------------+------------+---------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM BOOKSHELF
+    -> WHERE GENRE = 'Programming';
++------------------+------------------+------------+-------------+---------+
+| BOOK_TITLE       | AUTHOR_NAME      | PAGE_COUNT | GENRE       | STATUS  |
++------------------+------------------+------------+-------------+---------+
+| C Programming    | Dennis Ritchie   |        450 | Programming | Reading |
+| Java Programming | James Gosling    |        500 | Programming | Reading |
+| Python Basics    | Guido van Rossum |        400 | Programming | Reading |
++------------------+------------------+------------+-------------+---------+
+3 rows in set (0.01 sec)
+
+mysql> UPDATE BOOKSHELF
+    -> SET STATUS = 'Finished'
+    -> WHERE BOOK_TITLE = 'Java Programming';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> SELECT * FROM BOOKSHELF;
++---------------------+--------------------+------------+-------------+----------+
+| BOOK_TITLE          | AUTHOR_NAME        | PAGE_COUNT | GENRE       | STATUS   |
++---------------------+--------------------+------------+-------------+----------+
+| C Programming       | Dennis Ritchie     |        450 | Programming | Reading  |
+| Harry Potter        | J K Rowling        |        350 | Fantasy     | Finished |
+| Java Programming    | James Gosling      |        500 | Programming | Finished |
+| Python Basics       | Guido van Rossum   |        400 | Programming | Reading  |
+| Rich Dad Poor Dad   | Robert Kiyosaki    |        336 | Finance     | Reading  |
+| Sherlock Holmes     | Arthur Conan Doyle |        280 | Mystery     | Finished |
+| The Alchemist       | Paulo Coelho       |        220 | Fiction     | Finished |
+| The Hobbit          | J R R Tolkien      |        310 | Adventure   | Reading  |
+| Think and Grow Rich | Napoleon Hill      |        320 | Self Help   | Finished |
+| Wings of Fire       | A P J Abdul Kalam  |        180 | Biography   | Finished |
++---------------------+--------------------+------------+-------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> DELETE FROM BOOKSHELF
+    -> WHERE BOOK_TITLE = 'The Alchemist';
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT * FROM BOOKSHELF;
++---------------------+--------------------+------------+-------------+----------+
+| BOOK_TITLE          | AUTHOR_NAME        | PAGE_COUNT | GENRE       | STATUS   |
++---------------------+--------------------+------------+-------------+----------+
+| C Programming       | Dennis Ritchie     |        450 | Programming | Reading  |
+| Harry Potter        | J K Rowling        |        350 | Fantasy     | Finished |
+| Java Programming    | James Gosling      |        500 | Programming | Finished |
+| Python Basics       | Guido van Rossum   |        400 | Programming | Reading  |
+| Rich Dad Poor Dad   | Robert Kiyosaki    |        336 | Finance     | Reading  |
+| Sherlock Holmes     | Arthur Conan Doyle |        280 | Mystery     | Finished |
+| The Hobbit          | J R R Tolkien      |        310 | Adventure   | Reading  |
+| Think and Grow Rich | Napoleon Hill      |        320 | Self Help   | Finished |
+| Wings of Fire       | A P J Abdul Kalam  |        180 | Biography   | Finished |
++---------------------+--------------------+------------+-------------+----------+
+9 rows in set (0.00 sec)
+
+mysql>
