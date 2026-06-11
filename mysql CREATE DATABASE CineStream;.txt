@@ -1,0 +1,223 @@
+mysql> CREATE DATABASE CineStream;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE CineStream;
+Database changed
+mysql> CREATE TABLE Movies (
+    ->     movie_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     title VARCHAR(100) NOT NULL,
+    ->     genre VARCHAR(50) NOT NULL,
+    ->     release_year INT,
+    ->     rental_rate DECIMAL(5,2)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE Users (
+    ->     user_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     username VARCHAR(50) UNIQUE NOT NULL,
+    ->     email VARCHAR(100) UNIQUE NOT NULL,
+    ->     join_date DATE,
+    ->     status VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> CREATE TABLE WatchLog (
+    ->     log_id INT AUTO_INCREMENT PRIMARY KEY,
+    ->     user_id INT,
+    ->     movie_id INT,
+    ->     watch_date DATETIME,
+    ->     duration_minutes INT,
+    ->     FOREIGN KEY (user_id) REFERENCES Users(user_id),
+    ->     FOREIGN KEY (movie_id) REFERENCES Movies(movie_id)
+    -> );
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SHOW TABLES;
++----------------------+
+| Tables_in_cinestream |
++----------------------+
+| movies               |
+| users                |
+| watchlog             |
++----------------------+
+3 rows in set (0.00 sec)
+
+mysql> ^C
+mysql> INSERT INTO Movies (title, genre, release_year, rental_rate)
+    -> VALUES
+    -> ('Inception', 'Sci-Fi', 2010, 3.99),
+    -> ('The Dark Knight', 'Action', 2008, 4.49),
+    -> ('Avengers: Endgame', 'Action', 2019, 5.99),
+    -> ('Titanic', 'Romance', 1997, 2.99),
+    -> ('Joker', 'Drama', 2019, 4.99),
+    -> ('Frozen', 'Animation', 2013, 3.49),
+    -> ('The Conjuring', 'Horror', 2013, 3.99),
+    -> ('3 Idiots', 'Comedy', 2009, 2.99),
+    -> ('Bahubali', 'Action', 2015, 4.49),
+    -> ('Dangal', 'Sports', 2016, 3.99);
+Query OK, 10 rows affected (0.02 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> INSERT INTO Movies (title, genre, release_year, rental_rate)
+    -> VALUES ('Interstellar', 'Sci-Fi', 2014, 4.99);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM Movies;
++----------+-------------------+-----------+--------------+-------------+
+| movie_id | title             | genre     | release_year | rental_rate |
++----------+-------------------+-----------+--------------+-------------+
+|        1 | Inception         | Sci-Fi    |         2010 |        3.99 |
+|        2 | The Dark Knight   | Action    |         2008 |        4.49 |
+|        3 | Avengers: Endgame | Action    |         2019 |        5.99 |
+|        4 | Titanic           | Romance   |         1997 |        2.99 |
+|        5 | Joker             | Drama     |         2019 |        4.99 |
+|        6 | Frozen            | Animation |         2013 |        3.49 |
+|        7 | The Conjuring     | Horror    |         2013 |        3.99 |
+|        8 | 3 Idiots          | Comedy    |         2009 |        2.99 |
+|        9 | Bahubali          | Action    |         2015 |        4.49 |
+|       10 | Dangal            | Sports    |         2016 |        3.99 |
+|       11 | Interstellar      | Sci-Fi    |         2014 |        4.99 |
++----------+-------------------+-----------+--------------+-------------+
+11 rows in set (0.00 sec)
+
+mysql> INSERT INTO Users (username, email, join_date, status)
+    -> VALUES
+    -> ('johndoe123', 'john@gmail.com', '2025-02-10', 'Inactive'),
+    -> ('rahul01', 'rahul@gmail.com', '2025-03-15', 'Active'),
+    -> ('priya22', 'priya@gmail.com', '2024-12-20', 'Active'),
+    -> ('amit99', 'amit@gmail.com', '2025-04-05', 'Inactive'),
+    -> ('sneha11', 'sneha@gmail.com', '2025-01-25', 'Active'),
+    -> ('rohit07', 'rohit@gmail.com', '2024-11-10', 'Active'),
+    -> ('neha88', 'neha@gmail.com', '2025-05-18', 'Active'),
+    -> ('karan55', 'karan@gmail.com', '2025-02-28', 'Inactive'),
+    -> ('pooja33', 'pooja@gmail.com', '2025-06-01', 'Active'),
+    -> ('vijay44', 'vijay@gmail.com', '2024-10-15', 'Active');
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM Users;
++---------+------------+-----------------+------------+----------+
+| user_id | username   | email           | join_date  | status   |
++---------+------------+-----------------+------------+----------+
+|       1 | johndoe123 | john@gmail.com  | 2025-02-10 | Inactive |
+|       2 | rahul01    | rahul@gmail.com | 2025-03-15 | Active   |
+|       3 | priya22    | priya@gmail.com | 2024-12-20 | Active   |
+|       4 | amit99     | amit@gmail.com  | 2025-04-05 | Inactive |
+|       5 | sneha11    | sneha@gmail.com | 2025-01-25 | Active   |
+|       6 | rohit07    | rohit@gmail.com | 2024-11-10 | Active   |
+|       7 | neha88     | neha@gmail.com  | 2025-05-18 | Active   |
+|       8 | karan55    | karan@gmail.com | 2025-02-28 | Inactive |
+|       9 | pooja33    | pooja@gmail.com | 2025-06-01 | Active   |
+|      10 | vijay44    | vijay@gmail.com | 2024-10-15 | Active   |
++---------+------------+-----------------+------------+----------+
+10 rows in set (0.00 sec)
+
+mysql> INSERT INTO WatchLog (user_id, movie_id, watch_date, duration_minutes)
+    -> VALUES
+    -> (2,1,'2026-06-01 10:00:00',120),
+    -> (2,3,'2026-06-02 14:30:00',150),
+    -> (3,2,'2026-06-02 18:00:00',140),
+    -> (5,11,'2026-06-03 20:00:00',169),
+    -> (7,1,'2026-06-04 09:00:00',110),
+    -> (7,9,'2026-06-04 15:00:00',130),
+    -> (9,8,'2026-06-05 19:00:00',145),
+    -> (10,10,'2026-06-06 16:00:00',140),
+    -> (5,3,'2026-06-07 12:00:00',155),
+    -> (2,11,'2026-06-08 21:00:00',169);
+Query OK, 10 rows affected (0.01 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> SELECT * FROM WatchLog;
++--------+---------+----------+---------------------+------------------+
+| log_id | user_id | movie_id | watch_date          | duration_minutes |
++--------+---------+----------+---------------------+------------------+
+|      1 |       2 |        1 | 2026-06-01 10:00:00 |              120 |
+|      2 |       2 |        3 | 2026-06-02 14:30:00 |              150 |
+|      3 |       3 |        2 | 2026-06-02 18:00:00 |              140 |
+|      4 |       5 |       11 | 2026-06-03 20:00:00 |              169 |
+|      5 |       7 |        1 | 2026-06-04 09:00:00 |              110 |
+|      6 |       7 |        9 | 2026-06-04 15:00:00 |              130 |
+|      7 |       9 |        8 | 2026-06-05 19:00:00 |              145 |
+|      8 |      10 |       10 | 2026-06-06 16:00:00 |              140 |
+|      9 |       5 |        3 | 2026-06-07 12:00:00 |              155 |
+|     10 |       2 |       11 | 2026-06-08 21:00:00 |              169 |
++--------+---------+----------+---------------------+------------------+
+10 rows in set (0.00 sec)
+
+mysql> INSERT INTO Movies (title, genre, release_year, rental_rate)
+    -> VALUES ('Interstellar', 'Sci-Fi', 2014, 4.99);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Users
+    -> WHERE join_date > '2025-01-01'
+    -> AND status = 'Active';
++---------+----------+-----------------+------------+--------+
+| user_id | username | email           | join_date  | status |
++---------+----------+-----------------+------------+--------+
+|       2 | rahul01  | rahul@gmail.com | 2025-03-15 | Active |
+|       5 | sneha11  | sneha@gmail.com | 2025-01-25 | Active |
+|       7 | neha88   | neha@gmail.com  | 2025-05-18 | Active |
+|       9 | pooja33  | pooja@gmail.com | 2025-06-01 | Active |
++---------+----------+-----------------+------------+--------+
+4 rows in set (0.01 sec)
+
+mysql> UPDATE Users
+    -> SET status = 'Active'
+    -> WHERE username = 'johndoe123';
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM Users
+    -> WHERE username = 'johndoe123';
++---------+------------+----------------+------------+--------+
+| user_id | username   | email          | join_date  | status |
++---------+------------+----------------+------------+--------+
+|       1 | johndoe123 | john@gmail.com | 2025-02-10 | Active |
++---------+------------+----------------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> DELETE FROM Users
+    -> WHERE status = 'Inactive'
+    -> AND user_id NOT IN (
+    ->     SELECT user_id
+    ->     FROM WatchLog
+    -> );
+Query OK, 2 rows affected (0.02 sec)
+
+mysql> SELECT * FROM Users;
++---------+------------+-----------------+------------+--------+
+| user_id | username   | email           | join_date  | status |
++---------+------------+-----------------+------------+--------+
+|       1 | johndoe123 | john@gmail.com  | 2025-02-10 | Active |
+|       2 | rahul01    | rahul@gmail.com | 2025-03-15 | Active |
+|       3 | priya22    | priya@gmail.com | 2024-12-20 | Active |
+|       5 | sneha11    | sneha@gmail.com | 2025-01-25 | Active |
+|       6 | rohit07    | rohit@gmail.com | 2024-11-10 | Active |
+|       7 | neha88     | neha@gmail.com  | 2025-05-18 | Active |
+|       9 | pooja33    | pooja@gmail.com | 2025-06-01 | Active |
+|      10 | vijay44    | vijay@gmail.com | 2024-10-15 | Active |
++---------+------------+-----------------+------------+--------+
+8 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     M.genre AS Genre_Name,
+    ->     COUNT(W.log_id) AS Total_Watch_Count
+    -> FROM Movies M
+    -> INNER JOIN WatchLog W
+    -> ON M.movie_id = W.movie_id
+    -> GROUP BY M.genre
+    -> ORDER BY Total_Watch_Count DESC;
++------------+-------------------+
+| Genre_Name | Total_Watch_Count |
++------------+-------------------+
+| Sci-Fi     |                 4 |
+| Action     |                 4 |
+| Comedy     |                 1 |
+| Sports     |                 1 |
++------------+-------------------+
+4 rows in set (0.01 sec)
+
+mysql>
+mysql>
